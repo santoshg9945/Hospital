@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}My Website{% endblock %}</title>
+</head>
+<body>
+
+    <nav>
+        <a href="{% url 'admin_dashboard' %}" class="{% if request.path == '/admin_dashboard/' %}active{% endif %}">Admin Dashboard</a> |
+        <a href="{% url 'patient_dashboard' %}" class="{% if request.path == '/patient_dashboard/' %}active{% endif %}">Patient Dashboard</a> |
+        <a href="{% url 'doctor_dashboard' %}" class="{% if request.path == '/doctor_dashboard/' %}active{% endif %}">Doctor Dashboard</a> |
+        <a href="{% url 'logout' %}" class="{% if request.path == '/logout/' %}active{% endif %}">Logout</a>
+    </nav>
+    <hr>
+
+    <div>
+        {% block content %}{% endblock %}
+    </div>
+
+</body>
+</html>

@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Doctor List</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-image: url('https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            color: #333;
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 1400px;
+            margin: 20px auto;
+            background-color: rgba(255, 255, 255, 0.95);
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+        }
+
+        h2 {
+            text-align: center;
+            color: #0056b3;
+            margin-bottom: 25px;
+            font-size: 2.2em;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 15px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+            overflow: hidden;
+            font-size: 0.9em;
+            table-layout: auto; /* Allow columns to adjust based on content */
+        }
+
+        th, td {
+            border: 1px solid #ddd;
+            padding: 12px;
+            text-align: left;
+            word-wrap: break-word; /* Ensure text wraps within cells */
+        }
+
+        th {
+            background-color: #007bff;
+            color: white;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f2f7ff;
+        }
+
+        tr:hover {
+            background-color: #e6f0ff;
+        }
+
+        /* Optional scrolling mode */
+        .scrollable {
+            overflow-x: auto;
+        }
+
+        .scrollable table {
+            min-width: 1000px; /* Force scrolling for wide tables */
+        }
+
+        /* Toggle button */
+        .toggle-scroll {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .toggle-scroll button {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1em;
+            transition: background-color 0.3s ease;
+        }
+
+        .toggle-scroll button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Registered Doctors</h2>
+        <div class="toggle-scroll">
+            <button onclick="toggleScroll()">Toggle Scrolling</button>
+        </div>
+        <div id="table-container">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Full Name</th>
+                        <th>Email</th>
+                        <th>Phone</th>
+                        <th>DOB</th>
+                        <th>Gender</th>
+                        <th>Specialization</th>
+                        <th>Qualification</th>
+                        <th>Experience (Years)</th>
+                        <th>Address</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for doctor in doctors %}
+                    <tr>
+                        <td>{{ doctor.full_name }}</td>
+                        <td>{{ doctor.email }}</td>
+                        <td>{{ doctor.phone_number }}</td>
+                        <td>{{ doctor.date_of_birth }}</td>
+                        <td>{{ doctor.gender }}</td>
+                        <td>{{ doctor.specialization }}</td>
+                        <td>{{ doctor.qualification }}</td>
+                        <td>{{ doctor.experience }}</td>
+                        <td>{{ doctor.address }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <script>
+        function toggleScroll() {
+            const tableContainer = document.getElementById('table-container');
+            tableContainer.classList.toggle('scrollable');
+        }
+    </script>
+</body>
+</html>

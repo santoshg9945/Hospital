@@ -1,0 +1,196 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Patient Registration</title>
+    <link rel="stylesheet" href="{% static 'style.css' %}">
+    <style>
+        /* General Body Styling with Scrollbars */
+        body {
+            font-family: 'Roboto', sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background: linear-gradient(45deg, rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.7)),
+                        url('https://source.unsplash.com/1920x1080/?healthcare,hospital') no-repeat center center;
+            background-size: cover;
+            background-attachment: fixed;
+            color: #fff;
+            overflow: auto; /* Enables scrolling */
+            animation: zoomBackground 30s ease-in-out infinite alternate;
+        }
+
+        /* Background Zoom Animation */
+        @keyframes zoomBackground {
+            from { transform: scale(1); }
+            to { transform: scale(1.1); }
+        }
+
+        /* Floating Particles */
+        .particles {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            z-index: 0;
+        }
+
+        .particles span {
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            background: rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            animation: float 10s infinite ease-in-out;
+        }
+
+        @keyframes float {
+            0% { transform: translateY(0) translateX(0); opacity: 0; }
+            50% { transform: translateY(-100px) translateX(100px); opacity: 1; }
+            100% { transform: translateY(0) translateX(0); opacity: 0; }
+        }
+
+        /* Container for Registration Form with Scrollbars */
+        .registration-container {
+            background-color: rgba(0, 0, 0, 0.7);
+            padding: 40px;
+            border-radius: 10px;
+            text-align: center;
+            width: 90%;
+            max-width: 600px;
+            max-height: 80vh;
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
+            animation: fadeIn 1.5s ease-out;
+            position: relative;
+            z-index: 1;
+            overflow: auto; /* Enables scrolling inside the container */
+        }
+
+        /* Fade-in Animation */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Heading Styling */
+        h2 {
+            font-size: 2.5em;
+            color: #00bcd4;
+            font-weight: 600;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 6px rgba(0, 0, 0, 0.3);
+            animation: slideUp 1s ease-out;
+        }
+
+        @keyframes slideUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Form Styling */
+        form {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        form input,
+        form button {
+            padding: 12px;
+            font-size: 1em;
+            border-radius: 5px;
+            border: none;
+            outline: none;
+            transition: all 0.3s ease-in-out;
+        }
+
+        /* Input Fields */
+        form input {
+            background-color: #fff;
+            color: #333;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        form input:focus {
+            border: 2px solid #00bcd4;
+            transform: scale(1.02);
+        }
+
+        /* Button Styling */
+        button {
+            background-color: #00bcd4;
+            color: white;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #008c9e;
+            transform: translateY(-3px);
+        }
+
+        /* Success Message Styling */
+        p {
+            color: #4caf50;
+            font-size: 1.2em;
+            font-weight: 500;
+            margin-top: 20px;
+        }
+
+        /* Scrollbar Styling */
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #00bcd4;
+            border-radius: 5px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            h2 { font-size: 2em; }
+            .registration-container { padding: 20px; }
+            form input, form button { padding: 10px; font-size: 0.9em; }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="particles">
+        <span style="top: 10%; left: 15%; animation-delay: 0s;"></span>
+        <span style="top: 40%; left: 30%; animation-delay: 2s;"></span>
+        <span style="top: 60%; left: 50%; animation-delay: 4s;"></span>
+        <span style="top: 30%; left: 70%; animation-delay: 6s;"></span>
+        <span style="top: 80%; left: 90%; animation-delay: 8s;"></span>
+    </div>
+
+    <div class="registration-container">
+        <h2>Patient Registration</h2>
+        {% if messages %}
+            {% for message in messages %}
+                <p>{{ message }}</p>
+            {% endfor %}
+        {% endif %}
+        <form method="post">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit">Register</button>
+        </form>
+    </div>
+</body>
+</html>

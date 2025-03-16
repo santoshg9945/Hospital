@@ -1,0 +1,159 @@
+{% extends 'accounts/index.html' %}
+{% block content %}
+<style>
+    /* Reset default margins and paddings */
+    html, body {
+        margin: 0;
+        padding: 0;
+        height: 100%;
+        overflow: hidden;
+    }
+
+    /* Full-page container with animated background */
+    .container {
+        position: fixed; /* Ensures full coverage */
+        width: 100vw;
+        height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        color: white;
+        overflow: hidden;
+        background: url('https://source.unsplash.com/1600x900/?waiting,time,patience') no-repeat center center;
+        background-size: cover;
+        background-attachment: fixed;
+    }
+
+    /* Animated gradient overlay */
+    .container::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(45deg, rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.8));
+        z-index: 1;
+        animation: gradientShift 10s infinite alternate;
+    }
+
+    @keyframes gradientShift {
+        0% { background-position: 0% 50%; }
+        50% { background-position: 100% 50%; }
+        100% { background-position: 0% 50%; }
+    }
+
+    /* Content styling */
+    .content {
+        position: relative;
+        z-index: 2;
+        max-width: 600px;
+        padding: 20px;
+        background: rgba(0, 0, 0, 0.6);
+        border-radius: 10px;
+        animation: fadeIn 1.5s ease-in-out;
+    }
+
+    /* Fade-in animation */
+    @keyframes fadeIn {
+        from { opacity: 0; transform: translateY(20px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Animated heading */
+    h2 {
+        font-size: 2.5rem;
+        margin-bottom: 20px;
+        animation: pulse 2s infinite;
+    }
+
+    @keyframes pulse {
+        0% { transform: scale(1); }
+        50% { transform: scale(1.05); }
+        100% { transform: scale(1); }
+    }
+
+    /* Styled paragraph */
+    p {
+        font-size: 1.2rem;
+        margin-bottom: 30px;
+        animation: slideIn 1.5s ease-in-out;
+    }
+
+    @keyframes slideIn {
+        from { opacity: 0; transform: translateX(-20px); }
+        to { opacity: 1; transform: translateX(0); }
+    }
+
+    /* Logout button */
+    a {
+        display: inline-block;
+        padding: 12px 24px;
+        background-color: #007bff;
+        color: white;
+        text-decoration: none;
+        border-radius: 5px;
+        font-size: 1.1rem;
+        transition: background-color 0.3s ease, transform 0.3s ease;
+        animation: fadeIn 2s ease-in-out;
+    }
+
+    a:hover {
+        background-color: #0056b3;
+        transform: scale(1.05);
+    }
+
+    /* Floating particles */
+    .particles {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        z-index: 1;
+        overflow: hidden;
+    }
+
+    .particles span {
+        position: absolute;
+        display: block;
+        width: 10px;
+        height: 10px;
+        background: rgba(255, 255, 255, 0.3);
+        border-radius: 50%;
+        animation: float 5s infinite ease-in-out;
+    }
+
+    @keyframes float {
+        0% { transform: translateY(0) translateX(0); opacity: 0; }
+        50% { transform: translateY(-100px) translateX(100px); opacity: 1; }
+        100% { transform: translateY(0) translateX(0); opacity: 0; }
+    }
+
+    /* Random particle positioning */
+    .particles span:nth-child(1) { top: 20%; left: 10%; animation-delay: 0s; }
+    .particles span:nth-child(2) { top: 50%; left: 30%; animation-delay: 2s; }
+    .particles span:nth-child(3) { top: 70%; left: 50%; animation-delay: 4s; }
+    .particles span:nth-child(4) { top: 40%; left: 70%; animation-delay: 6s; }
+    .particles span:nth-child(5) { top: 10%; left: 90%; animation-delay: 8s; }
+</style>
+
+<div class="container">
+    <!-- Animated particles -->
+    <div class="particles">
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+    </div>
+
+    <!-- Main content -->
+    <div class="content">
+        <h2>Your account is pending approval.</h2>
+        <p>Please wait for the admin to approve your account. We appreciate your patience!</p>
+        <a href="{% url 'logout' %}">Logout</a>
+    </div>
+</div>
+{% endblock %}
